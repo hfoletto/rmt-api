@@ -9,8 +9,13 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\TheaterChain
  *
  * @property int $id
+ * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Theater[] $theaters
+ * @property-read int|null $theaters_count
+ * @method static \Database\Factories\TheaterChainFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|TheaterChain whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|TheaterChain newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TheaterChain newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|TheaterChain query()
@@ -22,4 +27,9 @@ use Illuminate\Database\Eloquent\Model;
 class TheaterChain extends Model
 {
     use HasFactory;
+
+    public function theaters()
+    {
+        return $this->hasMany(Theater::class);
+    }
 }

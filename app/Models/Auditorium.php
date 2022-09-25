@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Theater $theater
+ * @method static \Database\Factories\AuditoriumFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Auditorium newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Auditorium newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Auditorium query()
