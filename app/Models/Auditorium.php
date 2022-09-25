@@ -35,4 +35,9 @@ class Auditorium extends Model
     {
         return $this->belongsTo(Theater::class);
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
 }
