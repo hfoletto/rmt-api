@@ -17,25 +17,118 @@ type Query {
       "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
       name: String @where(operator: "like")
     ): [User!]! @paginate(defaultCount: 10)
+
+    "Find an auditorium by an identifying attribute."
+    auditorium(
+        "Search by primary key."
+        id: ID @eq
+    ): Auditorium @find
+
+    "List multiple auditoriums."
+    auditoria(
+        "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
+        name: String @where(operator: "like")
+    ): [Auditorium!]! @paginate(defaultCount: 10)
+
+    "Find a theater by an identifying attribute."
+    theater(
+        "Search by primary key."
+        id: ID @eq
+    ): Theater @find
+
+    "List multiple theaters."
+    theaters(
+        "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
+        name: String @where(operator: "like")
+    ): [Theater!]! @paginate(defaultCount: 10)
+
+    "Find a theater chain by an identifying attribute."
+    theaterChain(
+        "Search by primary key."
+        id: ID @eq
+    ): TheaterChain @find
+
+    "List multiple theater chains."
+    theaterChains(
+        "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
+        name: String @where(operator: "like")
+    ): [TheaterChain!]! @paginate(defaultCount: 10)
+
+    "Find a user-rating for auditorium by an identifying attribute."
+    rating(
+        "Search by primary key."
+        id: ID @eq
+    ): Rating @find
+
+    "List multiple user-rating for auditorium."
+    ratings(
+        "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
+        name: String @where(operator: "like")
+    ): [Rating!]! @paginate(defaultCount: 10)
 }
 
 "Account of a person who utilizes this application."
 type User {
-    "Unique primary key."
     id: ID!
-
-    "Non-unique name."
     name: String!
-
-    "Unique email address."
     email: String!
-
-    "When the email was verified."
     email_verified_at: DateTime
-
-    "When the account was created."
+    ratings: [Rating!]! @hasMany
     created_at: DateTime!
-
-    "When the account was last updated."
     updated_at: DateTime!
+}
+
+"A theater chain with theaters."
+type TheaterChain {
+    id: ID!
+    name: String!
+    theaters: [Theater!]! @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"A theater from a chain."
+type Theater {
+    id: ID!
+    name: String!
+    theaterChain: TheaterChain! @belongsTo
+    auditoria: [Auditorium!]! @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"A theater's auditorium room."
+type Auditorium {
+    id: ID!
+    name: String!
+    theater: Theater! @belongsTo
+    ratings: [Rating!]! @hasMany
+    image_rating: Float @aggregate(relation: "ratings", column: "image_rating", function: AVG)
+    audio_rating: Float @aggregate(relation: "ratings", column: "audio_rating", function: AVG)
+    comfort_rating: Float @aggregate(relation: "ratings", column: "comfort_rating", function: AVG)
+    bomboniere_rating: Float @aggregate(relation: "ratings", column: "bomboniere_rating", function: AVG)
+    experience_rating: Float @aggregate(relation: "ratings", column: "experience_rating", function: AVG)
+    ratings_count: Int! @count(relation: "ratings")
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"A user rating for an auditorium."
+type Rating {
+    id: ID!
+    user: User! @belongsTo
+    auditorium: Auditorium! @belongsTo
+    image_rating: Int
+    audio_rating: Int
+    comfort_rating: Int
+    bomboniere_rating: Int
+    experience_rating: Int
+    review: String
+    visited_at: DateTime!
+    movie_watched: String!
+    seat: String
+    seat_rating: Int
+    created_at: DateTime!
+    updated_at: DateTime!
+    deleted_at: DateTime
 }
