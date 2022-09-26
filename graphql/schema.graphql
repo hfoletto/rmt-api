@@ -18,6 +18,9 @@ type Query {
       name: String @where(operator: "like")
     ): [User!]! @paginate(defaultCount: 10)
 
+    "Get the current user"
+    me: User @auth
+
     "Find an auditorium by an identifying attribute."
     auditorium(
         "Search by primary key."
@@ -65,6 +68,14 @@ type Query {
         "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
         name: String @where(operator: "like")
     ): [Rating!]! @paginate(defaultCount: 10)
+}
+
+type Mutation {
+    "Log in to a new session and get the user."
+    login(email: String!, password: String!): User!
+
+    "Log out from the current session, showing the user one last time."
+    logout: User @guard
 }
 
 "Account of a person who utilizes this application."
