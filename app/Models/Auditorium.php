@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Auditorium
@@ -31,12 +33,12 @@ class Auditorium extends Model
 
     protected $table = 'auditoria';
 
-    public function theater()
+    public function theater(): BelongsTo
     {
         return $this->belongsTo(Theater::class);
     }
 
-    public function ratings()
+    public function ratings(): HasMany
     {
         return $this->hasMany(Rating::class);
     }

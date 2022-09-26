@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\TheaterChain
@@ -28,7 +29,7 @@ class TheaterChain extends Model
 {
     use HasFactory;
 
-    public function theaters()
+    public function theaters(): HasMany
     {
         return $this->hasMany(Theater::class);
     }
