@@ -88,14 +88,17 @@ type Mutation {
 
     "Creates a new auditorium in a theater."
     createAuditorium(input: CreateAuditoriumInput! @spread): Auditorium! @create
+
+    "Creates a new rating for an auditorium."
+    createRating(input: CreateRatingInput! @spread): Rating! @create
 }
 
 input CreateTheaterInput {
     name: String!
-    theaterChain: CreateTheaterChainBelongsTo
+    theaterChain: TheaterChainBelongsTo!
 }
 
-input CreateTheaterChainBelongsTo {
+input TheaterChainBelongsTo {
     connect: ID
     create: CreateTheaterChainInput
     update: UpdateTheaterChainInput
@@ -114,12 +117,7 @@ input UpsertTheaterChainInput {
     name: String!
 }
 
-input CreateAuditoriumInput {
-    name: String!
-    theater: CreateAuditoriumBelongsTo
-}
-
-input CreateAuditoriumBelongsTo {
+input TheaterBelongsTo {
     connect: ID
     create: CreateTheaterInput
     update: UpdateTheaterInput
@@ -132,6 +130,47 @@ input UpdateTheaterInput {
 
 input UpsertTheaterInput {
     name: String!
+}
+
+input AuditoriumBelongsTo {
+    connect: ID
+    create: CreateAuditoriumInput
+    update: UpdateAuditoriumInput
+    upsert: UpsertAuditoriumInput
+}
+
+input CreateAuditoriumInput {
+    name: String!
+    theater: TheaterBelongsTo!
+}
+
+input UpdateAuditoriumInput {
+    name: String
+    theater: TheaterBelongsTo
+}
+
+input UpsertAuditoriumInput {
+    name: String!
+    theater: TheaterBelongsTo!
+}
+
+input UserBelongsTo {
+    connect: ID
+}
+
+input CreateRatingInput {
+    user: UserBelongsTo!
+    auditorium: AuditoriumBelongsTo!
+    image_rating: Int
+    audio_rating: Int
+    comfort_rating: Int
+    bomboniere_rating: Int
+    experience_rating: Int
+    review: String
+    visited_at: Date!
+    movie_watched: String!
+    seat: String
+    seat_rating: Int
 }
 
 "Account of a person who utilizes this application."
