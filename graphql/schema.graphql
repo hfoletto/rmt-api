@@ -76,6 +76,59 @@ type Mutation {
 
     "Log out from the current session, showing the user one last time."
     logout: User @guard
+
+    "Creates a new theater chain."
+    createTheaterChain(input: CreateTheaterChainInput! @spread): TheaterChain! @create
+
+    "Creates a new theater in a theater chain."
+    createTheater(input: CreateTheaterInput! @spread): Theater! @create
+
+    "Creates a new auditorium in a theater."
+    createAuditorium(input: CreateAuditoriumInput! @spread): Auditorium! @create
+}
+
+input CreateTheaterInput {
+    name: String!
+    theaterChain: CreateTheaterChainBelongsTo
+}
+
+input CreateTheaterChainBelongsTo {
+    connect: ID
+    create: CreateTheaterChainInput
+    update: UpdateTheaterChainInput
+    upsert: UpsertTheaterChainInput
+}
+
+input CreateTheaterChainInput {
+    name: String!
+}
+
+input UpdateTheaterChainInput {
+    name: String!
+}
+
+input UpsertTheaterChainInput {
+    name: String!
+}
+
+input CreateAuditoriumInput {
+    name: String!
+    theater: CreateAuditoriumBelongsTo
+}
+
+input CreateAuditoriumBelongsTo {
+    connect: ID
+    create: CreateTheaterInput
+    update: UpdateTheaterInput
+    upsert: UpsertTheaterInput
+}
+
+input UpdateTheaterInput {
+    name: String!
+}
+
+input UpsertTheaterInput {
+    name: String!
 }
 
 "Account of a person who utilizes this application."
