@@ -80,6 +80,13 @@ type Mutation {
     "Log out from the current session, showing the user one last time."
     logout: User @guard
 
+    "Register a new user"
+    createUser(
+        name: String!
+        email: String! @rules(apply: ["email", "unique:users"])
+        password: String! @hash @rules(apply: ["min:8"])
+    ): User @create
+
     "Creates a new theater chain."
     createTheaterChain(input: CreateTheaterChainInput! @spread): TheaterChain! @create
 
