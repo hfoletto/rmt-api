@@ -97,7 +97,8 @@ type Mutation {
     createAuditorium(input: CreateAuditoriumInput! @spread): Auditorium! @create
 
     "Creates a new rating for an auditorium."
-    createRating(input: CreateRatingInput! @spread): Rating! @create
+    createRating(input: CreateRatingInput! @spread): Rating! @create @guard
+    @inject(context: "user.id", name: "input.user.id")
 }
 
 input CreateTheaterInput {
