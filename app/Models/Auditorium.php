@@ -26,6 +26,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Auditorium whereTheaterId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Auditorium whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Rating[] $ratings
+ * @property-read int|null $ratings_count
  */
 class Auditorium extends Model
 {
