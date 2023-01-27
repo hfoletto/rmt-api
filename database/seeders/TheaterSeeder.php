@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Theater;
 use App\Models\TheaterChain;
 use Faker\Generator;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TheaterSeeder extends Seeder
@@ -19,8 +18,7 @@ class TheaterSeeder extends Seeder
     {
         $faker = app(Generator::class);
 
-        TheaterChain::all()->each(fn (TheaterChain $theaterChain) =>
-            Theater::factory()
+        TheaterChain::all()->each(fn (TheaterChain $theaterChain) => Theater::factory()
                 ->count($faker->numberBetween(2, 12))
                 ->for($theaterChain)
                 ->create()

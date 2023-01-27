@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\TheaterChain;
 use Faker\Generator;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class TheaterChainSeeder extends Seeder

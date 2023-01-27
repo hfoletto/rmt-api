@@ -4,13 +4,10 @@ namespace Database\Seeders;
 
 use App\Models\Auditorium;
 use App\Models\Rating;
-use App\Models\Theater;
 use App\Models\User;
 use Faker\Generator;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Arr;
 
 class RatingSeeder extends Seeder
 {

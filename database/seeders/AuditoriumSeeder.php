@@ -4,9 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Auditorium;
 use App\Models\Theater;
-use App\Models\TheaterChain;
 use Faker\Generator;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
@@ -26,7 +24,7 @@ class AuditoriumSeeder extends Seeder
             Auditorium::factory()
                 ->count($faker->numberBetween(2, 9))
                 ->for($theater)
-                ->sequence(fn (Sequence $sequence) => ['name' => 'Sala ' . ($sequence->index + 1)])
+                ->sequence(fn (Sequence $sequence) => ['name' => 'Sala '.($sequence->index + 1)])
                 ->create();
         });
     }
