@@ -2,8 +2,8 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\Exceptions\SafeGraphQLException;
 use App\Models\User;
-use Error;
 use Illuminate\Support\Facades\Auth;
 
 final class Login
@@ -11,13 +11,17 @@ final class Login
     /**
      * @param  null  $_
      * @param  array<string, mixed>  $args
+     *
+     * @throws SafeGraphQLException
      */
     public function __invoke($_, array $args)
     {
         $guard = Auth::guard('web');
 
-        if (!$guard->attempt($args)) {
-            throw new Error('Invalid credentials.');
+        if (! $guard->attempt($args)) {
+            throw new SafeGraphQLException(
+                'Invalid credentials'
+            );
         }
 
         /**
