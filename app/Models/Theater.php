@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Auditorium[] auditoriums
  * @property-read int|null $auditoriums_count
  * @property-read \App\Models\TheaterChain $theaterChain
+ *
  * @method static \Database\Factories\TheaterFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Theater newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Theater newQuery()
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Theater whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Theater whereTheaterChainId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Theater whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Theater extends Model

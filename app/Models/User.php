@@ -28,6 +28,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Spatie\Permission\Models\Role[] $roles
  * @property-read int|null $roles_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|User permission($permissions)
  * @method static \Illuminate\Database\Eloquent\Builder|User role($roles, $guard = null)
  * @method static \Database\Factories\UserFactory factory(...$parameters)
@@ -42,7 +43,9 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Rating[] $ratings
  * @property-read int|null $ratings_count
  */
