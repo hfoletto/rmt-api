@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\State
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $uf
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Database\Factories\StateFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|State newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|State newQuery()
@@ -23,7 +25,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|State whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|State whereUf($value)
  * @method static \Illuminate\Database\Eloquent\Builder|State whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\City[] $cities
+ * @property-read int|null $cities_count
  */
 class State extends Model
 {
@@ -34,5 +40,10 @@ class State extends Model
         return Attribute::make(
             set: fn ($value) => strtoupper($value),
         );
+    }
+
+    public function cities(): hasMany
+    {
+        return $this->hasMany(City::class);
     }
 }
