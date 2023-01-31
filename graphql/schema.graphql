@@ -21,6 +21,18 @@ type Query {
       name: String @where(operator: "like")
     ): [User!]! @paginate(defaultCount: 10)
 
+    "List multiple states."
+    states(
+        "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
+        uf: String @where(operator: "like")
+    ): [State!]! @paginate(defaultCount: 10)
+
+    "List multiple cities."
+    cities(
+        "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
+        name: String @where(operator: "like")
+    ): [City!]! @paginate(defaultCount: 10)
+
     "Get the current user"
     me: User @auth
 
@@ -192,6 +204,25 @@ type User {
     updated_at: DateTime!
 }
 
+"State in the country."
+type State {
+    id: ID!
+    name: String!
+    uf: String!
+    cities: [City!]! @hasMany
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
+"City in a state."
+type City {
+    id: ID!
+    name: String!
+    state: State! @belongsTo
+    created_at: DateTime!
+    updated_at: DateTime!
+}
+
 "A theater chain with theaters."
 type TheaterChain {
     id: ID!
@@ -206,6 +237,7 @@ type Theater {
     id: ID!
     name: String!
     theaterChain: TheaterChain! @belongsTo
+    city: City! @belongsTo
     auditoriums: [Auditorium!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
