@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create('ratings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('auditorium_id')->constrained('auditoriums')->cascadeOnDelete();
             $table->unsignedTinyInteger('image_rating')->nullable();
             $table->unsignedTinyInteger('audio_rating')->nullable();

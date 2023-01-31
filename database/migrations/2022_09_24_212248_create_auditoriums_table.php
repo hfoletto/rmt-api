@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('auditoriums', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('theater_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('theater_id')->constrained('theaters')->cascadeOnDelete();
             $table->string('name');
             $table->timestamps();
         });
