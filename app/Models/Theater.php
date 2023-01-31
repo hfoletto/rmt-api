@@ -15,8 +15,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Auditorium[] $auditoria
- * @property-read int|null $auditoria_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Auditorium[] auditoriums
+ * @property-read int|null $auditoriums_count
  * @property-read \App\Models\TheaterChain $theaterChain
  * @method static \Database\Factories\TheaterFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Theater newModelQuery()
@@ -38,7 +38,7 @@ class Theater extends Model
         return $this->belongsTo(TheaterChain::class);
     }
 
-    public function auditoria(): HasMany
+    public function auditoriums(): HasMany
     {
         return $this->hasMany(Auditorium::class);
     }

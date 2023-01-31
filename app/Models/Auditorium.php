@@ -33,7 +33,7 @@ class Auditorium extends Model
 {
     use HasFactory;
 
-    protected $table = 'auditoria';
+    protected $table = 'auditoriums';
 
     public function theater(): BelongsTo
     {

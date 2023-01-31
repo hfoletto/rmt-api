@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('auditoria', function (Blueprint $table) {
+        Schema::create('auditoriums', function (Blueprint $table) {
             $table->id();
             $table->foreignId('theater_id')->constrained()->cascadeOnDelete();
             $table->string('name');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('auditoria');
+        Schema::dropIfExists('auditoriums');
     }
 };

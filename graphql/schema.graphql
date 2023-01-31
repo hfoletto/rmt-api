@@ -31,7 +31,7 @@ type Query {
     ): Auditorium @find
 
     "List multiple auditoriums."
-    auditoria(
+    auditoriums(
         "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
         name: String @where(operator: "like")
     ): [Auditorium!]! @paginate(defaultCount: 10)
@@ -206,7 +206,7 @@ type Theater {
     id: ID!
     name: String!
     theaterChain: TheaterChain! @belongsTo
-    auditoria: [Auditorium!]! @hasMany
+    auditoriums: [Auditorium!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
 }
