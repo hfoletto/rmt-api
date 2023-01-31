@@ -40,6 +40,11 @@ class Theater extends Model
         return $this->belongsTo(TheaterChain::class);
     }
 
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
+
     public function auditoriums(): HasMany
     {
         return $this->hasMany(Auditorium::class);

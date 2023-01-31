@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\City;
 use App\Models\TheaterChain;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,6 +20,7 @@ class TheaterFactory extends Factory
     {
         return [
             'theater_chain_id' => TheaterChain::factory(),
+            'city_id' => City::factory(),
             'name' => fake()->city(),
         ];
     }
