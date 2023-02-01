@@ -219,6 +219,7 @@ type City {
     id: ID!
     name: String!
     state: State! @belongsTo
+    theaters: [Theater!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
 }
