@@ -237,9 +237,11 @@ type TheaterChain {
 type Theater {
     id: ID!
     name: String!
+    address: String!
     theaterChain: TheaterChain! @belongsTo
     city: City! @belongsTo
     auditoriums: [Auditorium!]! @hasMany
+    auditoriums_count: Int! @count(relation: "auditoriums")
     created_at: DateTime!
     updated_at: DateTime!
 }
