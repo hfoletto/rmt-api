@@ -66,4 +66,29 @@ class Rating extends Model
     {
         return $this->belongsTo(Auditorium::class);
     }
+
+    public function scopeHasImageRating($query)
+    {
+        return $query->whereNotNull('image_rating');
+    }
+
+    public function scopeHasAudioRating($query)
+    {
+        return $query->whereNotNull('audio_rating');
+    }
+
+    public function scopeHasComfortRating($query)
+    {
+        return $query->whereNotNull('comfort_rating');
+    }
+
+    public function scopeHasBomboniereRating($query)
+    {
+        return $query->whereNotNull('bomboniere_rating');
+    }
+
+    public function scopeHasExperienceRating($query)
+    {
+        return $query->whereNotNull('experience_rating');
+    }
 }
