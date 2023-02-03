@@ -22,6 +22,7 @@ class TheaterFactory extends Factory
             'theater_chain_id' => TheaterChain::factory(),
             'city_id' => City::factory(),
             'name' => fake()->city(),
+            'address' => fake()->streetAddress(),
         ];
     }
 }
