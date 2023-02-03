@@ -16,7 +16,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\State $state
- *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Theater[] $theaters
+ * @property-read int|null $theaters_count
  * @method static \Database\Factories\CityFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|City newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|City newQuery()
@@ -26,7 +27,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|City whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|City whereStateId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|City whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class City extends Model

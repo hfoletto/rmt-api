@@ -28,7 +28,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Auditorium $auditorium
  * @property-read \App\Models\User $user
- *
  * @method static \Database\Factories\RatingFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Rating newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Rating newQuery()
@@ -52,7 +51,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Rating whereVisitedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Rating withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Rating withoutTrashed()
- *
  * @mixin \Eloquent
  */
 class Rating extends Model

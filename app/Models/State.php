@@ -15,7 +15,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $uf
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\City[] $cities
+ * @property-read int|null $cities_count
  * @method static \Database\Factories\StateFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|State newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|State newQuery()
@@ -25,11 +26,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|State whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|State whereUf($value)
  * @method static \Illuminate\Database\Eloquent\Builder|State whereUpdatedAt($value)
- *
  * @mixin \Eloquent
- *
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\City[] $cities
- * @property-read int|null $cities_count
  */
 class State extends Model
 {
