@@ -16,14 +16,33 @@ class CitySeeder extends Seeder
     public function run()
     {
         $states = State::all();
-        City::upsert([
+        City::updateOrCreate(
             ['name' => 'São Paulo', 'state_id' => $states->firstWhere('uf', 'SP')->id],
-            ['name' => 'Rio de Janeiro', 'uf' => $states->firstWhere('uf', 'RJ')->id],
-            ['name' => 'Brasília', 'uf' => $states->firstWhere('uf', 'DF')->id],
-            ['name' => 'Recife', 'uf' => $states->firstWhere('uf', 'PR')->id],
-            ['name' => 'Belo Horizonte', 'uf' => $states->firstWhere('uf', 'MG')->id],
-            ['name' => 'Maringá', 'uf' => $states->firstWhere('uf', 'PR')->id],
-            ['name' => 'Balneário Camboriú', 'uf' => $states->firstWhere('uf', 'SC')->id],
-        ], ['name', 'state_id'], ['name']);
+            []
+        );
+        City::updateOrCreate(
+            ['name' => 'Rio de Janeiro', 'state_id' => $states->firstWhere('uf', 'RJ')->id],
+            []
+        );
+        City::updateOrCreate(
+            ['name' => 'Brasília', 'state_id' => $states->firstWhere('uf', 'DF')->id],
+            []
+        );
+        City::updateOrCreate(
+            ['name' => 'Recife', 'state_id' => $states->firstWhere('uf', 'PR')->id],
+            []
+        );
+        City::updateOrCreate(
+            ['name' => 'Belo Horizonte', 'state_id' => $states->firstWhere('uf', 'MG')->id],
+            []
+        );
+        City::updateOrCreate(
+            ['name' => 'Maringá', 'state_id' => $states->firstWhere('uf', 'PR')->id],
+            []
+        );
+        City::updateOrCreate(
+            ['name' => 'Balneário Camboriú', 'state_id' => $states->firstWhere('uf', 'SC')->id],
+            []
+        );
     }
 }
