@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,21 +21,35 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $ratings_count
  * @property-read \App\Models\Theater $theater
  * @method static \Database\Factories\AuditoriumFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|Auditorium newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Auditorium newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Auditorium query()
- * @method static \Illuminate\Database\Eloquent\Builder|Auditorium whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Auditorium whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Auditorium whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Auditorium whereTheaterId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Auditorium whereUpdatedAt($value)
+ * @method static Builder|Auditorium newModelQuery()
+ * @method static Builder|Auditorium newQuery()
+ * @method static Builder|Auditorium query()
+ * @method static Builder|Auditorium whereCreatedAt($value)
+ * @method static Builder|Auditorium whereId($value)
+ * @method static Builder|Auditorium whereName($value)
+ * @method static Builder|Auditorium whereTheaterId($value)
+ * @method static Builder|Auditorium whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class Auditorium extends Model
 {
-    use HasFactory;
+    use HasFactory, Sluggable;
 
     protected $table = 'auditoriums';
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
+
+    public function scopeWithUniqueSlugConstraints(Builder $query, Auditorium $model, $attribute, $config, $slug): Builder
+    {
+        return $query->where('theater_id', '=', $model->theater_id);
+    }
 
     public function theater(): BelongsTo
     {
