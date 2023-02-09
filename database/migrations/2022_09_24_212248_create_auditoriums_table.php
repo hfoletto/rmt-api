@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('theater_id')->constrained('theaters')->cascadeOnDelete();
             $table->string('name');
+            $table->string('slug');
             $table->timestamps();
+            $table->unique(['slug', 'theater_id']);
         });
     }
 
