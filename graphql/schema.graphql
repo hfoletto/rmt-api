@@ -31,6 +31,7 @@ type Query {
     cities(
         "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
         name: String @where(operator: "like")
+        slug: String @where(operator: "like")
     ): [City!]! @paginate(defaultCount: 10)
 
     "Get the current user"
@@ -40,18 +41,21 @@ type Query {
     auditorium(
         "Search by primary key."
         id: ID @eq
+        slug: String @where(operator: "like")
     ): Auditorium @find
 
     "List multiple auditoriums."
     auditoriums(
         "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
         name: String @where(operator: "like")
+        slug: String @where(operator: "like")
     ): [Auditorium!]! @paginate(defaultCount: 10)
 
     "Find a theater by an identifying attribute."
     theater(
         "Search by primary key."
         id: ID @eq
+        slug: String @where(operator: "like")
     ): Theater @find
 
     "List multiple theaters."
@@ -218,6 +222,7 @@ type State {
 type City {
     id: ID!
     name: String!
+    slug: String!
     state: State! @belongsTo
     theaters: [Theater!]! @hasMany
     created_at: DateTime!
@@ -228,6 +233,7 @@ type City {
 type TheaterChain {
     id: ID!
     name: String!
+    slug: String!
     theaters: [Theater!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
@@ -237,10 +243,11 @@ type TheaterChain {
 type Theater {
     id: ID!
     name: String!
+    slug: String!
     address: String!
     theaterChain: TheaterChain! @belongsTo
     city: City! @belongsTo
-    auditoriums: [Auditorium!]! @hasMany
+    auditoriums (slug: String @eq): [Auditorium!]! @hasMany
     auditoriums_count: Int! @count(relation: "auditoriums")
     created_at: DateTime!
     updated_at: DateTime!
@@ -250,6 +257,7 @@ type Theater {
 type Auditorium {
     id: ID!
     name: String!
+    slug: String!
     theater: Theater! @belongsTo
     ratings: [Rating!]! @hasMany
     image_rating: Float @aggregate(relation: "ratings", column: "image_rating", function: AVG)
