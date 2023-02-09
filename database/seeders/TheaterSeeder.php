@@ -22,7 +22,7 @@ class TheaterSeeder extends Seeder
         $cities = City::all();
 
         TheaterChain::all()->each(fn (TheaterChain $theaterChain) => Theater::factory()
-                ->count($faker->numberBetween(2, 12))
+                ->count($faker->numberBetween(3, 9))
                 ->for($theaterChain)
                 ->state(new Sequence(function ($sequence) use ($cities, $theaterChain, $faker) {
                     $city = $cities->random();
