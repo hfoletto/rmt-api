@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             TheaterChainSeeder::class,
             TheaterSeeder::class,
             AuditoriumSeeder::class,
+            MovieSeeder::class,
             RatingSeeder::class,
         ]);
     }

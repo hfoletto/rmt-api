@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Auditorium;
+use App\Models\Movie;
 use App\Models\Rating;
 use App\Models\User;
 use Faker\Generator;
@@ -20,11 +21,20 @@ class RatingSeeder extends Seeder
     {
         $faker = app(Generator::class);
         $user_ids = User::all()->pluck('id');
-        Auditorium::all()->each(function (Auditorium $auditorium) use ($faker, $user_ids) {
+        $movies = Movie::all();
+        Auditorium::all()->each(function (Auditorium $auditorium) use ($movies, $faker, $user_ids) {
             Rating::factory()
                 ->count($faker->numberBetween(1, 20))
                 ->for($auditorium)
-                ->sequence(fn (Sequence $sequence) => ['user_id' => $user_ids->random()])
+                ->sequence(function (Sequence $sequence) use ($user_ids, $movies, $faker) {
+                    /** @var Movie $movie */
+                    $movie = $movies->random();
+                    return[
+                        'user_id' => $user_ids->random(),
+                        'movie_watched_id' => $movie->id,
+                        'visited_at' => $faker->dateTimeBetween($movie->release_date, strtotime('+3 weeks', $movie->release_date->format('U'))),
+                    ];
+                })
                 ->create();
         });
     }
