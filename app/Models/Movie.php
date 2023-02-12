@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * App\Models\Movie
@@ -13,9 +16,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $title
  * @property string $original_title
  * @property string $overview
- * @property string $release_date
+ * @property \Illuminate\Support\Carbon $release_date
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection|\Spatie\MediaLibrary\MediaCollections\Models\Media[] $media
+ * @property-read int|null $media_count
+ * @property-read string|null $poster_url
  * @method static \Database\Factories\MovieFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Movie newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Movie newQuery()
@@ -30,11 +36,25 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Movie whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Movie extends Model
+class Movie extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $casts = [
         'release_date' => 'date',
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('poster')
+            ->singleFile();
+    }
+
+    protected function posterUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => $this->getMedia('poster')?->first()?->original_url,
+        );
+    }
 }
