@@ -49,7 +49,7 @@ class MediaCustomPathGenerator implements PathGenerator
     protected function getKey(Media $media): string
     {
         if ($media->model_type === Movie::class) {
-            return $media->model->tmdb_id;
+            return 'tmdb-' . $media->model->tmdb_id;
         }
         return $media->getKey();
     }
