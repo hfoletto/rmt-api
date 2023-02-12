@@ -259,7 +259,7 @@ type Auditorium {
     name: String!
     slug: String!
     theater: Theater! @belongsTo
-    ratings: [Rating!]! @hasMany
+    ratings: [Rating!]! @hasMany @orderBy(column: "visited_at", direction: DESC)
     image_rating: Float @aggregate(relation: "ratings", column: "image_rating", function: AVG)
     image_rating_count: Int! @count(relation: "ratings", scopes: ["hasImageRating"])
     audio_rating: Float @aggregate(relation: "ratings", column: "audio_rating", function: AVG)
@@ -287,10 +287,23 @@ type Rating {
     experience_rating: Int
     review: String
     visited_at: Date!
-    movie_watched: String!
+    movie_watched: Movie! @belongsTo(relation: "movieWatched")
     seat: String
     seat_rating: Int
     created_at: DateTime!
     updated_at: DateTime!
     deleted_at: DateTime
+}
+
+"A movie from tmdb."
+type Movie {
+    id: ID!
+    tmdb_id: ID!
+    title: String!
+    original_title: String!
+    overview: String!
+    release_date: Date!
+    poster_url: String
+    created_at: DateTime!
+    updated_at: DateTime!
 }
