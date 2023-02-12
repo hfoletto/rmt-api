@@ -20,15 +20,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null $experience_rating
  * @property string|null $review
  * @property string $visited_at
- * @property string $movie_watched
+ * @property int $movie_watched_id
  * @property string|null $seat
  * @property string|null $seat_rating
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Auditorium $auditorium
+ * @property-read \App\Models\Movie $movieWatched
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\RatingFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating hasAudioRating()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating hasBomboniereRating()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating hasComfortRating()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating hasExperienceRating()
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating hasImageRating()
  * @method static \Illuminate\Database\Eloquent\Builder|Rating newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Rating newQuery()
  * @method static \Illuminate\Database\Query\Builder|Rating onlyTrashed()
@@ -42,7 +48,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Rating whereExperienceRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Rating whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Rating whereImageRating($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Rating whereMovieWatched($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Rating whereMovieWatchedId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Rating whereReview($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Rating whereSeat($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Rating whereSeatRating($value)
@@ -65,6 +71,11 @@ class Rating extends Model
     public function auditorium(): BelongsTo
     {
         return $this->belongsTo(Auditorium::class);
+    }
+
+    public function movieWatched(): BelongsTo
+    {
+        return $this->belongsTo(Movie::class);
     }
 
     public function scopeHasImageRating($query)
