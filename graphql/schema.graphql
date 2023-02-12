@@ -258,6 +258,7 @@ type Auditorium {
     id: ID!
     name: String!
     slug: String!
+    description: String!
     theater: Theater! @belongsTo
     ratings: [Rating!]! @hasMany @orderBy(column: "visited_at", direction: DESC)
     image_rating: Float @aggregate(relation: "ratings", column: "image_rating", function: AVG)
@@ -271,6 +272,7 @@ type Auditorium {
     experience_rating: Float @aggregate(relation: "ratings", column: "experience_rating", function: AVG)
     experience_rating_count: Int! @count(relation: "ratings", scopes: ["hasExperienceRating"])
     ratings_count: Int! @count(relation: "ratings")
+    featured_image: Media
     created_at: DateTime!
     updated_at: DateTime!
 }
@@ -306,4 +308,8 @@ type Movie {
     poster_url: String
     created_at: DateTime!
     updated_at: DateTime!
+}
+
+type Media {
+    original_url: String!
 }
