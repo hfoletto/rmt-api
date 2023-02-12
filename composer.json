@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.7",
         "mll-lab/laravel-graphiql": "^1.0",
         "nuwave/lighthouse": "^5.61",
+        "php-tmdb/api": "^4",
         "spatie/laravel-medialibrary": "^10.0.0"
     },
     "require-dev": {
