@@ -87,6 +87,8 @@ type Query {
         "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
         name: String @where(operator: "like")
     ): [Rating!]! @paginate(defaultCount: 10)
+
+    searchMovies(query: String!): [Movie]
 }
 
 type Mutation {
@@ -306,6 +308,7 @@ type Movie {
     overview: String!
     release_date: Date!
     poster_url: String
+    tmdb_post_path: String
     created_at: DateTime!
     updated_at: DateTime!
 }
