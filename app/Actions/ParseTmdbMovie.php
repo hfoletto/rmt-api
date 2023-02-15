@@ -16,12 +16,13 @@ class ParseTmdbMovie
 
     /**
      * @param array $tmdb_movie
+     * @param bool $save
      * @return Movie
      * @throws FileDoesNotExist
      * @throws FileIsTooBig
      * @throws Throwable
      */
-    static public function handle(array $tmdb_movie): Movie
+    static public function handle(array $tmdb_movie, bool $save = true): Movie
     {
         try {
             DB::beginTransaction();
@@ -32,14 +33,21 @@ class ParseTmdbMovie
             $movie->original_title = Arr::get($tmdb_movie, 'original_title');
             $movie->overview = Arr::get($tmdb_movie, 'overview');
             $movie->release_date = Arr::get($tmdb_movie, 'release_date');
-            $movie->save();
+            if ($save) {
+                $movie->save();
+            }
 
             // Poster image
             if ($image_name = Str::remove('/', Arr::get($tmdb_movie, 'poster_path'))) {
-                Storage::disk('local')->put($image_name, file_get_contents('https://image.tmdb.org/t/p/w500/' . $image_name));
-                $movie
-                    ->addMedia(storage_path('app/' . $image_name))
-                    ->toMediaCollection('poster');
+                $poster_url = 'https://image.tmdb.org/t/p/w500/' . $image_name;
+                if ($save) {
+                    Storage::disk('local')->put($image_name, file_get_contents($poster_url));
+                    $movie
+                        ->addMedia(storage_path('app/' . $image_name))
+                        ->toMediaCollection('poster');
+                } else {
+                    $movie->setAttribute('tmdb_post_path', $poster_url);
+                }
             }
 
             DB::commit();
