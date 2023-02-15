@@ -16,7 +16,7 @@ class TmdbClient
 {
 
     static public function getClient(): Client {
-        $token = new ApiToken(config('tmdb.api_key'));
+        $token = new ApiToken(config('services.tmdb.api_key'));
 
         $ed = new \Symfony\Component\EventDispatcher\EventDispatcher();
 
