@@ -21,7 +21,6 @@ final class SearchMovies
         $client = TmdbClient::getClient();
         $search = $client->getSearchApi()->searchMovies($args['query'], [
             'language' => 'pt-BR',
-            'region' => 'BR',
             'include_adult' => false,
         ]);
         if ($search['results']) {
