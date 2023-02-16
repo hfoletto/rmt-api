@@ -302,7 +302,7 @@ type Rating {
 "A movie from tmdb."
 type Movie {
     id: ID!
-    tmdb_id: ID!
+    tmdb_id: Int!
     title: String!
     original_title: String!
     overview: String!
