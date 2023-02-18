@@ -65,6 +65,25 @@ class Rating extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'auditorium_id',
+        'image_rating',
+        'audio_rating',
+        'comfort_rating',
+        'bomboniere_rating',
+        'experience_rating',
+        'review',
+        'visited_at',
+        'movie_watched_id',
+        'seat',
+        'seat_rating',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
