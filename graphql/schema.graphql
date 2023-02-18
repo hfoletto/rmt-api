@@ -115,8 +115,7 @@ type Mutation {
     createAuditorium(input: CreateAuditoriumInput! @spread): Auditorium! @create
 
     "Creates a new rating for an auditorium."
-    createRating(input: CreateRatingInput! @spread): Rating! @create @guard
-    @inject(context: "user.id", name: "input.user.id")
+    createRating(input: CreateRatingInput! @spread): Rating! @guard
 }
 
 input CreateTheaterInput {
@@ -185,16 +184,15 @@ input UserBelongsTo {
 }
 
 input CreateRatingInput {
-    user: UserBelongsTo!
-    auditorium: AuditoriumBelongsTo!
-    image_rating: Int
-    audio_rating: Int
-    comfort_rating: Int
-    bomboniere_rating: Int
-    experience_rating: Int
+    auditorium_id: Int!
+    image_rating: Int @rules(apply: ["nullable", "integer", "min:1", "max:5"])
+    audio_rating: Int @rules(apply: ["nullable", "integer", "min:1", "max:5"])
+    comfort_rating: Int @rules(apply: ["nullable", "integer", "min:1", "max:5"])
+    bomboniere_rating: Int @rules(apply: ["nullable", "integer", "min:1", "max:5"])
+    experience_rating: Int @rules(apply: ["nullable", "integer", "min:1", "max:5"])
     review: String
-    visited_at: Date!
-    movie_watched: String!
+    visited_at: Date! @rules(apply: ["required", "date", "before_or_equal:today"])
+    tmdb_movie_id: Int!
     seat: String
     seat_rating: Int
 }
