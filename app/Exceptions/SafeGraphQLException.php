@@ -3,9 +3,10 @@
 namespace App\Exceptions;
 
 use Exception;
-use Nuwave\Lighthouse\Exceptions\RendersErrorsExtensions;
+use GraphQL\Error\ClientAware;
+use GraphQL\Error\ProvidesExtensions;
 
-class SafeGraphQLException extends Exception implements RendersErrorsExtensions
+class SafeGraphQLException extends Exception implements ClientAware, ProvidesExtensions
 {
     protected ?string $reason;
 
@@ -44,7 +45,7 @@ class SafeGraphQLException extends Exception implements RendersErrorsExtensions
      *
      * @return array
      */
-    public function extensionsContent(): array
+    public function getExtensions(): array
     {
         return [
             'reason' => $this->reason,
