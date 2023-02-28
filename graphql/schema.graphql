@@ -34,6 +34,8 @@ type Query {
         slug: String @where(operator: "like")
     ): [City!]! @paginate(defaultCount: 10)
 
+    mostPopularCity: City! @first(scopes: ["orderByPopularity"]) # @cache(maxAge: 604800)
+
     "Get the current user"
     me: User @auth
 
