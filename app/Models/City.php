@@ -66,4 +66,9 @@ class City extends Model
             [Theater::class, Auditorium::class],
         );
     }
+
+    public function scopeOrderByPopularity($query)
+    {
+        return $query->withCount('ratings')->orderBy('ratings_count', 'desc');
+    }
 }
