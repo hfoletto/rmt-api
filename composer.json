@@ -15,6 +15,7 @@
         "nuwave/lighthouse": "^6.0.0-alpha.1",
         "php-tmdb/api": "^4",
         "spatie/laravel-medialibrary": "^10.7.9"
+        "staudenmeir/eloquent-has-many-deep": "^1.8"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

@@ -34,6 +34,8 @@ type Query {
         slug: String @where(operator: "like")
     ): [City!]! @paginate(defaultCount: 10)
 
+    mostPopularCity: City! @first(scopes: ["orderByPopularity"]) # @cache(maxAge: 604800)
+
     "Get the current user"
     me: User @auth
 
@@ -62,6 +64,7 @@ type Query {
     theaters(
         "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
         name: String @where(operator: "like")
+        city_id: ID @where
     ): [Theater!]! @paginate(defaultCount: 10)
 
     "Find a theater chain by an identifying attribute."

@@ -29,7 +29,7 @@ class CitySeeder extends Seeder
             []
         );
         City::updateOrCreate(
-            ['name' => 'Recife', 'state_id' => $states->firstWhere('uf', 'PR')->id],
+            ['name' => 'Recife', 'state_id' => $states->firstWhere('uf', 'PE')->id],
             []
         );
         City::updateOrCreate(
