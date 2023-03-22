@@ -64,6 +64,7 @@ type Query {
     theaters(
         "Filters by name. Accepts SQL LIKE wildcards `%` and `_`."
         name: String @where(operator: "like")
+        city_id: ID @where
     ): [Theater!]! @paginate(defaultCount: 10)
 
     "Find a theater chain by an identifying attribute."
