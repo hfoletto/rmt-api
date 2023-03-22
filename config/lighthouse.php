@@ -31,14 +31,14 @@ return [
             // Sanctum
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
 
-            \Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson::class,
+            \Nuwave\Lighthouse\Http\Middleware\AcceptJson::class,
 
             // Logs in a user if they are authenticated. In contrast to Laravel's 'auth'
             // middleware, this delegates auth and permission checks to the field level.
-            \Nuwave\Lighthouse\Support\Http\Middleware\AttemptAuthentication::class,
+            \Nuwave\Lighthouse\Http\Middleware\AttemptAuthentication::class,
 
             // Logs every incoming GraphQL query.
-            // \Nuwave\Lighthouse\Support\Http\Middleware\LogGraphQLQueries::class,
+            // \Nuwave\Lighthouse\Http\Middleware\LogGraphQLQueries::class,
         ],
 
         /*
@@ -51,12 +51,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Authentication Guard
+    | Authentication Guards
     |--------------------------------------------------------------------------
     |
-    | The guard to use for authenticating GraphQL requests, if needed.
+    | The guards to use for authenticating GraphQL requests, if needed.
     | Used in directives such as `@guard` or the `AttemptAuthentication` middleware.
-    | Falls back to the Laravel default if the defined guard is either `null` or not found.
+    | Falls back to the Laravel default if `null`.
     |
     */
 
@@ -89,36 +89,10 @@ return [
         /*
          * Setting to true enables schema caching.
          */
-        'enable' => env('LIGHTHOUSE_SCHEMA_CACHE_ENABLE', 'local' !== env('APP_ENV')),
-
-        /*
-         * Allowed values:
-         * - 1: uses the store, key and ttl config values to store the schema as a string in the given cache store.
-         * - 2: uses the path config value to store the schema in a PHP file allowing OPcache to pick it up.
-         */
-        'version' => env('LIGHTHOUSE_SCHEMA_CACHE_VERSION', 1),
-
-        /*
-         * Allows using a specific cache store, uses the app's default if set to null.
-         * Only relevant if version is set to 1.
-         */
-        'store' => env('LIGHTHOUSE_SCHEMA_CACHE_STORE', null),
-
-        /*
-         * The name of the cache item for the schema cache.
-         * Only relevant if version is set to 1.
-         */
-        'key' => env('LIGHTHOUSE_SCHEMA_CACHE_KEY', 'lighthouse-schema'),
-
-        /*
-         * Duration in seconds the schema should remain cached, null means forever.
-         * Only relevant if version is set to 1.
-         */
-        'ttl' => env('LIGHTHOUSE_SCHEMA_CACHE_TTL', null),
+        'enable' => env('LIGHTHOUSE_SCHEMA_CACHE_ENABLE', env('APP_ENV') !== 'local'),
 
         /*
          * File path to store the lighthouse schema.
-         * Only relevant if version is set to 2.
          */
         'path' => env('LIGHTHOUSE_SCHEMA_CACHE_PATH', base_path('bootstrap/cache/lighthouse-schema.php')),
     ],
@@ -154,14 +128,9 @@ return [
         'store' => env('LIGHTHOUSE_QUERY_CACHE_STORE', null),
 
         /*
-         * Duration in seconds (minutes for Laravel pre-5.8) the query should remain cached, null means forever.
+         * Duration in seconds the query should remain cached, null means forever.
          */
-        'ttl' => env(
-            'LIGHTHOUSE_QUERY_CACHE_TTL',
-            \Nuwave\Lighthouse\Support\AppVersion::atLeast(5.8)
-                ? 24 * 60 * 60 // 1 day in seconds
-                : 24 * 60 // 1 day in minutes
-        ),
+        'ttl' => env('LIGHTHOUSE_QUERY_CACHE_TTL', 24 * 60 * 60),
     ],
 
     /*
@@ -180,6 +149,7 @@ return [
         'queries' => 'App\\GraphQL\\Queries',
         'mutations' => 'App\\GraphQL\\Mutations',
         'subscriptions' => 'App\\GraphQL\\Subscriptions',
+        'types' => 'App\\GraphQL\\Types',
         'interfaces' => 'App\\GraphQL\\Interfaces',
         'unions' => 'App\\GraphQL\\Unions',
         'scalars' => 'App\\GraphQL\\Scalars',
@@ -434,12 +404,6 @@ return [
                 'routes' => \Nuwave\Lighthouse\Subscriptions\SubscriptionRouter::class . '@echoRoutes',
             ],
         ],
-
-        /*
-         * Controls the format of the extensions response.
-         * Allowed values: 1, 2
-         */
-        'version' => env('LIGHTHOUSE_SUBSCRIPTION_VERSION', 1),
 
         /*
          * Should the subscriptions extension be excluded when the response has no subscription channel?
