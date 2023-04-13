@@ -119,6 +119,14 @@ type Mutation {
 
     "Creates a new rating for an auditorium."
     createRating(input: CreateRatingInput! @spread): Rating! @guard
+
+    "Submits a contact message."
+    contact(
+        name: String!,
+        phone_number: String!,
+        email: String! @rules(apply: ["email"]),
+        message: String!,
+    ): Boolean!
 }
 
 input CreateTheaterInput {
