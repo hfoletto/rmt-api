@@ -121,4 +121,15 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Contact form recipient email address
+    |--------------------------------------------------------------------------
+    |
+    | This is the email that will be used to send the contact form messages
+    |
+    */
+
+    'contact_recipient' => env('CONTACT_EMAIL_RECIPIENT')
+
 ];
