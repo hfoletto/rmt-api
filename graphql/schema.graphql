@@ -105,8 +105,8 @@ type Mutation {
     createUser(
         name: String! @rules(apply: ["required"])
         email: String! @rules(apply: ["required", "email", "unique:users"])
-        password: String! @hash @rules(apply: ["required", "min:8"])
-    ): User @create
+        password: String! @rules(apply: ["required", "min:8"])
+    ): User
 
     "Creates a new theater chain."
     createTheaterChain(input: CreateTheaterChainInput! @spread): TheaterChain! @create
