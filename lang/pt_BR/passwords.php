@@ -19,5 +19,6 @@ return [
     'throttled' => 'Aguarde antes de tentar novamente.',
     'token' => 'Este token de redefinição de senha é inválido.',
     'user' => "Não encontramos um usuário com esse endereço de e-mail.",
+    'reset_request' => "Se o endereço de email solicitado existir em nosso sistema, você receberá um email com o link para redefinir sua senha. Certifique-se de verificar suas pastas de spam ou lixo eletrônico.",
 
 ];
