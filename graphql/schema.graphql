@@ -108,6 +108,17 @@ type Mutation {
         password: String! @rules(apply: ["required", "min:8"])
     ): User
 
+    forgotPassword(
+        email: String! @rules(apply: ["required", "email"])
+    ): String
+
+    resetPassword(
+        email: String! @rules(apply: ["required", "email"])
+        password: String! @rules(apply: ["required", "min:8", "confirmed"])
+        password_confirmation: String!
+        token: String! @rules(apply: ["required"])
+    ): String
+
     "Creates a new theater chain."
     createTheaterChain(input: CreateTheaterChainInput! @spread): TheaterChain! @create
 
